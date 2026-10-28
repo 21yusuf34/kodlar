@@ -59,8 +59,12 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = true;  // Sola bak
         }
 
-        // Animator parametrelerini güncelleme (Idle, Walk, Jump geçişleri için)
-        animator.SetBool("isWalking", moveInput != 0);
+        // --- ÇÖZÜM KISMI ---
+        // moveInput 0'dan farklıysa (aşırı küçük kaymaları önlemek için Mathf.Abs kullanıyoruz) yürüyor kabul et.
+        bool isMoving = Mathf.Abs(moveInput) > 0.01f;
+
+        // Animator parametrelerini güncelleme
+        animator.SetBool("isWalking", isMoving);
         animator.SetBool("isGrounded", isGrounded);
     }
 
